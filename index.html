@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pin Pun Pan - Generador Educativo Kawaii & Ilustrado</title>
+  <title>Pin Pun Pan - Generador Educativo Profesional</title>
   
-  <!-- Carga de Fuentes Escolares y Kawaii de Google -->
+  <!-- Fuentes Escolares y Kawaii de Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Quicksand:wght@600;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
     h1 {
       text-align: center;
       color: #ff4757;
-      font-size: 28px;
+      font-size: 26px;
       margin-bottom: 2px;
       font-family: var(--font-title);
       text-shadow: 2px 2px 0px #ffeaa7;
@@ -76,7 +76,7 @@
       font-size: 12px;
       font-family: var(--font-body);
     }
-    textarea { resize: vertical; height: 42px; }
+    textarea { resize: vertical; height: 50px; }
 
     .btn-group { display: flex; gap: 8px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap; }
     button {
@@ -97,8 +97,8 @@
     button.btn-orange { background: #ffa502; }
     button.btn-ai { background: #ff4757; width: 100%; margin-top: 5px; }
 
-    /* Área de Previsualización / Lienzo Gráfico Tipo Sticker */
-    .preview-area { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow-x: auto; }
+    /* Área de Previsualización Fluida y Sin Cortes */
+    .preview-area { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow-x: auto; }
     
     .hoja-impresion {
       background: #ffffff;
@@ -107,34 +107,38 @@
       box-sizing: border-box;
       position: relative;
       margin: 0 auto;
-      overflow: hidden;
       padding: 15px;
+      min-height: 580px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     /* Tamaños de Papel */
-    .papel-carta { width: 780px; min-height: 520px; }
-    .papel-oficio { width: 890px; min-height: 520px; }
-    .papel-tabloide { width: 1020px; min-height: 620px; }
+    .papel-carta { width: 780px; }
+    .papel-oficio { width: 890px; }
+    .papel-tabloide { width: 1020px; }
 
-    /* Estilos Tipo Sticker Kawaii */
+    /* Estilos de Lámina Expositiva */
     .lamina-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 15px;
       height: 100%;
+      flex-grow: 1;
     }
     
     .lamina-header {
       grid-column: 1 / -1;
       background: #ff6b81;
       color: white;
-      padding: 12px;
+      padding: 14px;
       border-radius: 16px;
       text-align: center;
       box-shadow: 0 5px 12px rgba(255, 107, 129, 0.3);
       border: 3px solid #ffeaa7;
     }
-    .lamina-header h2 { margin: 0; font-size: 24px; font-family: var(--font-title); letter-spacing: 1px; }
+    .lamina-header h2 { margin: 0; font-size: 26px; font-family: var(--font-title); letter-spacing: 1px; }
 
     .sticker-card {
       background: #fff;
@@ -144,23 +148,24 @@
       box-shadow: 4px 4px 0px #70a1ff;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      justify-content: space-between;
+      gap: 8px;
     }
     .sticker-card-title {
       font-size: 12px;
       font-weight: bold;
       color: #3742fa;
       background: #eccc68;
-      padding: 3px 10px;
+      padding: 4px 10px;
       border-radius: 8px;
       display: inline-block;
       text-align: center;
     }
-    .sticker-card-text { font-size: 11px; color: #2f3542; line-height: 1.3; }
+    .sticker-card-text { font-size: 12px; color: #2f3542; line-height: 1.4; flex-grow: 1; }
 
     .panel-img-container {
       width: 100%;
-      height: 110px;
+      height: 120px;
       background: #f1f2f6;
       border-radius: 12px;
       overflow: hidden;
@@ -172,10 +177,10 @@
     .panel-img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
 
     /* Malla para Trípticos */
-    .grid-triptico { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .grid-triptico { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; height: 100%; flex-grow: 1; }
     .columna-panel {
       border-right: 2px dashed #ced6e0;
-      padding: 8px;
+      padding: 10px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -194,8 +199,8 @@
 </head>
 <body>
 
-  <h1>✨ Pin Pun Pan - Generador Educativo Kawaii</h1>
-  <p class="subtitle">Láminas Expositivas · Trípticos · Infografías · Ilustraciones de Alta Calidad</p>
+  <h1>✨ Pin Pun Pan - Creador Educativo</h1>
+  <p class="subtitle">Láminas Expositivas · Trípticos · Infografías Profesionales</p>
 
   <div class="btn-group">
     <button onclick="toggleVista()" id="btnVista">🔄 Ver Cara Interior / Contenido</button>
@@ -208,27 +213,26 @@
     <!-- PANEL DE CONTROL -->
     <div class="control-panel">
       
-      <!-- MÓDULO IA E IMÁGENES KAWAII -->
+      <!-- MÓDULO IA Y ESTILOS -->
       <div class="ai-section">
-        <div class="ai-title">🎨 Generador de Ilustraciones e IA</div>
+        <div class="ai-title">🎨 Generador Inteligente Pin Pun Pan</div>
         
         <div class="form-group">
           <label>Tema del Material:</label>
-          <input type="text" id="inTemaIA" value="El Sistema Eléctrico">
+          <input type="text" id="inTemaIA" value="El Reciclaje Escolar">
         </div>
 
         <div class="form-group">
-          <label>Estilo de Ilustración Preferido:</label>
-          <select id="inEstiloImg" onchange="cambiarEstiloIlustracion()">
-            <option value="kawaii" selected>🧸 Kawaii / Vector Infantil Vectorial</option>
-            <option value="coloreable">🖍️ Dibujo para Colorear (Líneas B/N)</option>
-            <option value="3d-cartoon">✨ 3D Cartoon / Estilo Pixar-Gemini</option>
-            <option value="realista">📸 Fotografía HD Realista</option>
+          <label>Estilo Visual de Ilustraciones:</label>
+          <select id="inEstiloImg" onchange="aplicarEstiloVisual()">
+            <option value="reciclaje" selected>♻️ Estilo Ecología / Reciclaje Animado</option>
+            <option value="electricidad">⚡ Estilo Ciencia / Electricidad Kawaii</option>
+            <option value="animales">🐾 Estilo Animales y Naturaleza TIERNA</option>
+            <option value="espacio">🚀 Estilo Universo y Espacio Escolar</option>
           </select>
         </div>
 
-        <button class="btn-ai" onclick="generarLaminaconEstilo()">✨ Generar Lámina e Ilustraciones</button>
-        <button style="background:#57606f; width:100%; margin-top:6px; font-size:11px;" onclick="copiarPromptIA()">📋 Copiar Prompt para NanoBanana / Gemini</button>
+        <button class="btn-ai" onclick="generarContenidoInteligente()">✨ Generar Texto e Imágenes con IA</button>
       </div>
 
       <div class="section-title">1. Formato y Tamaño de Papel</div>
@@ -255,17 +259,17 @@
       <div class="form-group"><label>Escuela / U.E.:</label><input type="text" id="inEscuela" value="U.E. Mishistica" oninput="actualizarVista()"></div>
       <div class="form-group"><label>Grado y Sección:</label><input type="text" id="inGrado" value="5º Grado 'A'" oninput="actualizarVista()"></div>
 
-      <div class="section-title">3. Edición de Texto e Imágenes</div>
-      <div class="form-group"><label>Título Principal:</label><input type="text" id="inTitulo" value="EL SISTEMA ELÉCTRICO" oninput="actualizarVista()"></div>
+      <div class="section-title">3. Edición de Textos e Imágenes</div>
+      <div class="form-group"><label>Título Principal:</label><input type="text" id="inTitulo" value="EL RECICLAJE Y SU IMPORTANCIA" oninput="actualizarVista()"></div>
       
-      <div class="form-group"><label>Sección 1 (Texto):</label><textarea id="txtCara1" oninput="actualizarVista()">¿Qué es la electricidad? Es la energía que produce luz y movimiento a través de cargas eléctricas.</textarea></div>
-      <div class="form-group"><label>Imagen 1 (URL / PNG):</label><input type="text" id="imgCara1" value="https://cdn-icons-png.flaticon.com/512/3109/3109813.png" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Sección 1 (Texto):</label><textarea id="txtCara1" oninput="actualizarVista()">¿Qué es el reciclaje? Es el proceso de recolectar y transformar desechos en nuevos materiales para cuidar el planeta.</textarea></div>
+      <div class="form-group"><label>Imagen 1 (URL / PNG):</label><input type="text" id="imgCara1" value="https://cdn-icons-png.flaticon.com/512/3069/3069176.png" oninput="actualizarVista()"></div>
 
-      <div class="form-group"><label>Sección 2 (Texto):</label><textarea id="txtCara2" oninput="actualizarVista()">¿Cómo viaja? La energía viaja desde las centrales eléctricas por cables hasta llegar a casa.</textarea></div>
-      <div class="form-group"><label>Imagen 2 (URL / PNG):</label><input type="text" id="imgCara2" value="https://cdn-icons-png.flaticon.com/512/2983/2983780.png" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Sección 2 (Texto):</label><textarea id="txtCara2" oninput="actualizarVista()">Clasificación: Separar adecuadamente los residuos en papel, plástico, vidrio y metal en los contenedores.</textarea></div>
+      <div class="form-group"><label>Imagen 2 (URL / PNG):</label><input type="text" id="imgCara2" value="https://cdn-icons-png.flaticon.com/512/1598/1598208.png" oninput="actualizarVista()"></div>
 
-      <div class="form-group"><label>Sección 3 (Texto):</label><textarea id="txtCara3" oninput="actualizarVista()">Consejo Seguro: Usa la electricidad con precaución y desconecta los aparatos que no uses.</textarea></div>
-      <div class="form-group"><label>Imagen 3 (URL / PNG):</label><input type="text" id="imgCara3" value="https://cdn-icons-png.flaticon.com/512/1040/1040230.png" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Sección 3 (Texto):</label><textarea id="txtCara3" oninput="actualizarVista()">Beneficios: Reducir la contaminación, conservar los recursos naturales y asegurar un futuro limpio.</textarea></div>
+      <div class="form-group"><label>Imagen 3 (URL / PNG):</label><input type="text" id="imgCara3" value="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" oninput="actualizarVista()"></div>
 
     </div>
 
@@ -286,42 +290,37 @@
       return `<div class="panel-img-container"><img src="${url}" class="panel-img" alt="Ilustración" onerror="this.parentNode.style.display='none'"></div>`;
     }
 
-    function cambiarEstiloIlustracion() {
+    function aplicarEstiloVisual() {
       const estilo = document.getElementById('inEstiloImg').value;
       
-      if (estilo === 'kawaii') {
+      if (estilo === 'reciclaje') {
+        document.getElementById('imgCara1').value = 'https://cdn-icons-png.flaticon.com/512/3069/3069176.png';
+        document.getElementById('imgCara2').value = 'https://cdn-icons-png.flaticon.com/512/1598/1598208.png';
+        document.getElementById('imgCara3').value = 'https://cdn-icons-png.flaticon.com/512/2921/2921822.png';
+      } else if (estilo === 'electricidad') {
         document.getElementById('imgCara1').value = 'https://cdn-icons-png.flaticon.com/512/3109/3109813.png';
         document.getElementById('imgCara2').value = 'https://cdn-icons-png.flaticon.com/512/2983/2983780.png';
         document.getElementById('imgCara3').value = 'https://cdn-icons-png.flaticon.com/512/1040/1040230.png';
-      } else if (estilo === 'coloreable') {
-        document.getElementById('imgCara1').value = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
-        document.getElementById('imgCara2').value = 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png';
-        document.getElementById('imgCara3').value = 'https://cdn-icons-png.flaticon.com/512/3135/3135789.png';
-      } else if (estilo === '3d-cartoon') {
-        document.getElementById('imgCara1').value = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400';
-        document.getElementById('imgCara2').value = 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400';
-        document.getElementById('imgCara3').value = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400';
+      } else if (estilo === 'animales') {
+        document.getElementById('imgCara1').value = 'https://cdn-icons-png.flaticon.com/512/616/616408.png';
+        document.getElementById('imgCara2').value = 'https://cdn-icons-png.flaticon.com/512/616/616430.png';
+        document.getElementById('imgCara3').value = 'https://cdn-icons-png.flaticon.com/512/616/616554.png';
+      } else if (estilo === 'espacio') {
+        document.getElementById('imgCara1').value = 'https://cdn-icons-png.flaticon.com/512/3128/3128310.png';
+        document.getElementById('imgCara2').value = 'https://cdn-icons-png.flaticon.com/512/3062/3062634.png';
+        document.getElementById('imgCara3').value = 'https://cdn-icons-png.flaticon.com/512/2917/2917995.png';
       }
       actualizarVista();
     }
 
-    function generarLaminaconEstilo() {
-      const tema = document.getElementById('inTemaIA').value || 'EL TEMA';
+    function generarContenidoInteligente() {
+      const tema = document.getElementById('inTemaIA').value || 'Tema Escolar';
       document.getElementById('inTitulo').value = tema.toUpperCase();
-      document.getElementById('txtCara1').value = `Concepto Principal: Explicación amigable y clara sobre ${tema} con enfoque escolar.`;
-      document.getElementById('txtCara2').value = `Proceso y Funcionamiento: ¿Cómo se aplica ${tema} en la vida cotidiana y en la escuela?`;
-      document.getElementById('txtCara3').value = `Puntos Clave y Recuerda: Datos curiosos e importantes para recordar sobre ${tema}.`;
-      cambiarEstiloIlustracion();
-      alert(`✨ ¡Lámina ilustrada sobre "${tema}" generada con éxito!`);
-    }
-
-    function copiarPromptIA() {
-      const tema = document.getElementById('inTemaIA').value || 'tema escolar';
-      const estilo = document.getElementById('inEstiloImg').value;
-      const prompt = `Crea una ilustración infantil vectorial transparente PNG de alta resolución sobre "${tema}", en estilo ${estilo}, colores vivos pasteles, personajes tiernos sonrientes, fondo blanco limpio, perfecto para lámina escolar.`;
-      
-      navigator.clipboard.writeText(prompt);
-      alert(`📋 Prompt copiado al portapapeles:\n\n"${prompt}"\n\nPégalo en Gemini o NanoBanana para generar tu imagen perfecta.`);
+      document.getElementById('txtCara1').value = `Introducción y Concepto: Explicación clave y fundamental sobre ${tema} adaptada para el nivel escolar.`;
+      document.getElementById('txtCara2').value = `Desarrollo y Práctica: Fases, características y cómo se aplica ${tema} en la vida diaria.`;
+      document.getElementById('txtCara3').value = `Conclusión y Recomendaciones: Puntos esenciales a recordar y reflexiones finales sobre ${tema}.`;
+      aplicarEstiloVisual();
+      alert(`✨ ¡Contenido generado con éxito para: "${tema}"!`);
     }
 
     function actualizarVista() {
@@ -348,23 +347,23 @@
         lienzo.innerHTML = `
           <div class="lamina-container">
             <div class="lamina-header">
-              <h2>⚡ ${titulo} ⚡</h2>
+              <h2>🌟 ${titulo} 🌟</h2>
             </div>
             
             <div class="sticker-card">
-              <span class="sticker-card-title">1. ¿QUÉ ES?</span>
+              <span class="sticker-card-title">1. CONCEPTO PRINCIPAL</span>
               <p class="sticker-card-text">${txt1}</p>
               ${renderImg(img1)}
             </div>
 
             <div class="sticker-card">
-              <span class="sticker-card-title">2. ¿CÓMO FUNCIONA?</span>
+              <span class="sticker-card-title">2. DESARROLLO Y PRÁCTICA</span>
               <p class="sticker-card-text">${txt2}</p>
               ${renderImg(img2)}
             </div>
 
             <div class="sticker-card" style="grid-column: 1 / -1;">
-              <span class="sticker-card-title">💡 RECUERDA Y PRECAUCIÓN</span>
+              <span class="sticker-card-title">💡 CONCLUSIÓN Y RECOMENDACIONES</span>
               <p class="sticker-card-text">${txt3}</p>
               ${renderImg(img3)}
             </div>
@@ -414,7 +413,7 @@
       const lienzo = document.getElementById('hojaLienzo');
       html2canvas(lienzo, { scale: 2 }).then(canvas => {
         const enlace = document.createElement('a');
-        enlace.download = 'lamina-educativa-pinpunpan.png';
+        enlace.download = 'recurso-educativo-pinpunpan.png';
         enlace.href = canvas.toDataURL('image/png');
         enlace.click();
       });
