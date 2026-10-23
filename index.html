@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pin Pun Pan - Generador Educativo Automático</title>
   
-  <!-- Carga de Fuentes Escolares de Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@600;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
   
-  <!-- Librería para Exportar a PNG HD -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
@@ -76,7 +74,7 @@
       font-size: 11px;
       font-family: var(--font-body);
     }
-    textarea { resize: vertical; height: 52px; }
+    textarea { resize: vertical; height: 60px; }
 
     .btn-group { display: flex; gap: 6px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
     button {
@@ -97,7 +95,6 @@
     button.btn-orange { background: #ffa502; }
     button.btn-ai { background: var(--primary); width: 100%; margin-top: 5px; }
 
-    /* PREVISUALIZACIÓN Y LIENZO FLUIDO SIN VACÍOS */
     .preview-area { background: white; padding: 15px; border-radius: 20px; overflow-x: auto; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
     
     .hoja-impresion {
@@ -107,10 +104,7 @@
       box-sizing: border-box;
       margin: 0 auto;
       padding: 15px;
-      min-height: 600px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      min-height: 580px;
     }
 
     .papel-carta { width: 780px; }
@@ -118,28 +112,31 @@
     .papel-tabloide { width: 1020px; }
 
     /* ESTILOS DE INSTRUMENTOS */
-    
-    /* 1. MAPA CONCEPTUAL (Nubes y Flechas) */
     .mapa-container { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
     .nube-central { background: #ff7675; color: white; border-radius: 30px; padding: 12px 25px; font-family: var(--font-title); font-size: 24px; text-align: center; border: 3px solid #ffeaa7; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     .flecha { font-size: 22px; color: #70a1ff; font-weight: bold; text-align: center; }
     .nodos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
     .nodo-card { background: #fff; border: 2px solid #70a1ff; border-radius: 14px; padding: 10px; box-shadow: 3px 3px 0px #70a1ff; }
 
-    /* 2. LAPBOOK (Bolsillos y Solapas) */
-    .lapbook-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; height: 100%; }
-    .bolsillo-box { border: 2px dashed #ff6b81; background: #fff0f6; border-radius: 14px; padding: 10px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+    .lapbook-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .bolsillo-box { border: 2px dashed #ff6b81; background: #fff0f6; border-radius: 14px; padding: 10px; text-align: center; }
 
-    /* 3. SCRAPBOOK (Álbum con Pegatinas) */
     .scrap-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #fff8ed; border: 2px solid #f0932b; border-radius: 16px; padding: 12px; }
     .scrap-card { background: white; border: 2px solid #eccc68; border-radius: 12px; padding: 8px; box-shadow: 4px 4px 0px #f0932b; }
 
-    /* 4. TRÍPTICO Y DÍPTICO */
-    .grid-triptico { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; height: 100%; }
-    .col-triptico { border-right: 2px dashed #ced6e0; padding: 6px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; }
+    /* TRÍPTICO CORREGIDO PARA EVITAR ESPACIOS VACÍOS */
+    .grid-triptico { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; height: 100%; }
+    .col-triptico { 
+      border-right: 2px dashed #ced6e0; 
+      padding: 8px; 
+      box-sizing: border-box; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 10px; /* Apila los elementos ordenadamente sin espacios vacíos gigantes */
+    }
     .col-triptico:last-child { border-right: none; }
 
-    .img-box { width: 100%; height: 100px; background: #f1f2f6; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px dashed #ced6e0; margin-top: 5px; }
+    .img-box { width: 100%; height: 130px; background: #f1f2f6; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px dashed #ced6e0; }
     .img-box img { width: 100%; height: 100%; object-fit: contain; }
 
     @media print {
@@ -163,10 +160,8 @@
 
   <div class="app-container">
     
-    <!-- PANEL DE CONTROL -->
     <div class="control-panel">
       
-      <!-- MÓDULO INTELIGENTE DE IA -->
       <div class="ai-box">
         <div class="ai-title">🤖 Redacción e Ilustración Inteligente</div>
         
@@ -193,10 +188,10 @@
           </select>
         </div>
 
-        <button class="btn-ai" onclick="generarTodoConIA()">✨ Generar Texto Completo e Ilustraciones</button>
+        <button class="btn-ai" onclick="generarTodoConIA()">✨ Generar Texto e Ilustraciones</button>
       </div>
 
-      <div class="section-title">1. Formato de Instrumento y Papel</div>
+      <div class="section-title">1. Formato y Papel</div>
       <div class="form-group">
         <label>Instrumento Educativo:</label>
         <select id="inFormato" onchange="guardarYActualizar()">
@@ -223,46 +218,22 @@
       <div class="form-group"><label>Escuela / U.E.:</label><input type="text" id="inEscuela" value="U.E. Mishistica" oninput="guardarYActualizar()"></div>
       <div class="form-group"><label>Grado / Sección:</label><input type="text" id="inGrado" value="5º Grado 'A'" oninput="guardarYActualizar()"></div>
 
-      <div class="section-title">3. Edición de Texto e Imágenes (Rellenado)</div>
+      <div class="section-title">3. Edición de Contenido</div>
       <div class="form-group"><label>Título Principal:</label><input type="text" id="inTitulo" value="SISTEMA ELÉCTRICO Y ENERGÍA" oninput="guardarYActualizar()"></div>
       
-      <div class="form-group">
-        <label>Sección 1 (Texto Completo):</label>
-        <textarea id="txt1" oninput="guardarYActualizar()">¿Qué es la electricidad? Es la forma de energía generada por el movimiento de partículas llamadas electrones. Permite encender luces, hacer funcionar electrodomésticos y alimentar equipos clave en nuestros hogares y escuelas de forma segura.</textarea>
-      </div>
-      <div class="form-group">
-        <label>Imagen 1 (Prediseñada / O subir de Galería):</label>
-        <input type="file" accept="image/*" onchange="cargarImagenLocal(event, 'img1')">
-        <input type="text" id="img1" placeholder="URL de la imagen" oninput="guardarYActualizar()">
-      </div>
+      <div class="form-group"><label>Texto Sección 1:</label><textarea id="txt1" oninput="guardarYActualizar()">¿Qué es la electricidad? Es la forma de energía generada por el movimiento de partículas llamadas electrones. Permite encender luces, hacer funcionar electrodomésticos y alimentar equipos clave en nuestros hogares y escuelas de forma segura.</textarea></div>
+      <div class="form-group"><label>Imagen 1 (Subir o URL):</label><input type="file" accept="image/*" onchange="cargarImagenLocal(event, 'img1')"><input type="text" id="img1" placeholder="URL" oninput="guardarYActualizar()"></div>
 
-      <div class="form-group">
-        <label>Sección 2 (Texto Completo):</label>
-        <textarea id="txt2" oninput="guardarYActualizar()">¿Cómo viaja la energía? La electricidad se genera en centrales hidroeléctricas, eólicas o solares. Se transporta mediante cables de alta tensión y transformadores que regulan el flujo hasta llegar directamente a los tomacorrientes de nuestras casas.</textarea>
-      </div>
-      <div class="form-group">
-        <label>Imagen 2 (Prediseñada / O subir de Galería):</label>
-        <input type="file" accept="image/*" onchange="cargarImagenLocal(event, 'img2')">
-        <input type="text" id="img2" placeholder="URL de la imagen" oninput="guardarYActualizar()">
-      </div>
+      <div class="form-group"><label>Texto Sección 2:</label><textarea id="txt2" oninput="guardarYActualizar()">¿Cómo viaja la energía? La electricidad se genera en centrales hidroeléctricas, eólicas o solares. Se transporta mediante cables de alta tensión y transformadores que regulan el flujo hasta llegar directamente a los tomacorrientes de nuestras casas.</textarea></div>
+      <div class="form-group"><label>Imagen 2 (Subir o URL):</label><input type="file" accept="image/*" onchange="cargarImagenLocal(event, 'img2')"><input type="text" id="img2" oninput="guardarYActualizar()"></div>
 
-      <div class="form-group">
-        <label>Sección 3 (Texto Completo):</label>
-        <textarea id="txt3" oninput="guardarYActualizar()">Precauciones y Uso Responsable: Nunca toques cables pelados ni conectes aparatos con las manos mojadas. Ahorra energía apagando los bombillos que no utilices para cuidar los recursos naturales y el planeta.</textarea>
-      </div>
-      <div class="form-group">
-        <label>Imagen 3 (Prediseñada / O subir de Galería):</label>
-        <input type="file" accept="image/*" onchange="cargarImagenLocal(event, 'img3')">
-        <input type="text" id="img3" placeholder="URL de la imagen" oninput="guardarYActualizar()">
-      </div>
+      <div class="form-group"><label>Texto Sección 3:</label><textarea id="txt3" oninput="guardarYActualizar()">Precauciones y Uso Responsable: Nunca toques cables pelados ni conectes aparatos con las manos mojadas. Ahorra energía apagando los bombillos que no utilices para cuidar los recursos naturales y el planeta.</textarea></div>
+      <div class="form-group"><label>Imagen 3 (Subir o URL):</label><input type="file" accept="image/*" onchange="cargarImagenLocal(event, 'img3')"><input type="text" id="img3" oninput="guardarYActualizar()"></div>
 
     </div>
 
-    <!-- VISTA PREVIA INTERACTIVA -->
     <div class="preview-area">
-      <div class="hoja-impresion papel-tabloide" id="hojaLienzo">
-        <!-- Render Automático -->
-      </div>
+      <div class="hoja-impresion papel-tabloide" id="hojaLienzo"></div>
     </div>
 
   </div>
@@ -303,7 +274,6 @@
         document.getElementById('txt3').value = `Recomendaciones e Impacto: Datos curiosos, medidas de precaución y consejos prácticos sobre ${tema} para promover el cuidado y el aprendizaje continuo.`;
       }
 
-      // Asignación de imágenes ilustradas según estilo
       if (estilo === 'kawaii') {
         document.getElementById('img1').value = 'https://cdn-icons-png.flaticon.com/512/3109/3109813.png';
         document.getElementById('img2').value = 'https://cdn-icons-png.flaticon.com/512/2983/2983780.png';
@@ -393,95 +363,54 @@
       lienzo.className = `hoja-impresion ${papel}`;
 
       if (formato === 'mapa') {
-        // MAPA CONCEPTUAL
         lienzo.innerHTML = `
           <div class="mapa-container">
             <div class="nube-central">☁️ ${titulo} ☁️</div>
             <div class="flecha">⬇️</div>
             <div class="nodos-grid">
-              <div class="nodo-card">
-                <strong style="color:#3742fa;">1. CONCEPTO CLAVE</strong>
-                <p style="font-size:11px; margin:5px 0;">${txt1}</p>
-                ${renderImg(img1)}
-              </div>
-              <div class="nodo-card" style="border-color:#ff4757; box-shadow:3px 3px 0px #ff4757;">
-                <strong style="color:#ff4757;">2. FUNCIONAMIENTO</strong>
-                <p style="font-size:11px; margin:5px 0;">${txt2}</p>
-                ${renderImg(img2)}
-              </div>
+              <div class="nodo-card"><strong style="color:#3742fa;">1. CONCEPTO CLAVE</strong><p style="font-size:11px; margin:5px 0;">${txt1}</p>${renderImg(img1)}</div>
+              <div class="nodo-card" style="border-color:#ff4757; box-shadow:3px 3px 0px #ff4757;"><strong style="color:#ff4757;">2. FUNCIONAMIENTO</strong><p style="font-size:11px; margin:5px 0;">${txt2}</p>${renderImg(img2)}</div>
             </div>
             <div class="flecha">⬇️</div>
-            <div class="nodo-card" style="width:100%; border-color:#2ed573; box-shadow:3px 3px 0px #2ed573;">
-              <strong style="color:#2ed573;">3. CONCLUSIÓN Y CUIDADOS</strong>
-              <p style="font-size:11px; margin:5px 0;">${txt3}</p>
-              ${renderImg(img3)}
-            </div>
+            <div class="nodo-card" style="width:100%; border-color:#2ed573; box-shadow:3px 3px 0px #2ed573;"><strong style="color:#2ed573;">3. CONCLUSIÓN Y CUIDADOS</strong><p style="font-size:11px; margin:5px 0;">${txt3}</p>${renderImg(img3)}</div>
             <div style="font-size:10px; color:#747d8c; text-align:center;">${alumno} | ${escuela} - ${grado}</div>
           </div>
         `;
       } else if (formato === 'lapbook') {
-        // LAPBOOK
         lienzo.innerHTML = `
           <div class="lapbook-grid">
-            <div class="bolsillo-box">
-              <strong>✂️ Solapa A</strong>
-              <p style="font-size:11px; text-align:left;">${txt1}</p>
-              ${renderImg(img1)}
-            </div>
-            <div class="bolsillo-box" style="background:#e3f2fd; border-color:#2196f3;">
-              <strong>✉️ Bolsillo Central</strong>
-              <h3 style="margin:5px 0; color:#0984e3; font-family:var(--font-title);">${titulo}</h3>
-              ${renderImg(img2)}
-              <small>${alumno} - ${grado}</small>
-            </div>
-            <div class="bolsillo-box">
-              <strong>✂️ Solapa B</strong>
-              <p style="font-size:11px; text-align:left;">${txt3}</p>
-              ${renderImg(img3)}
-            </div>
+            <div class="bolsillo-box"><strong>✂️ Solapa A</strong><p style="font-size:11px;">${txt1}</p>${renderImg(img1)}</div>
+            <div class="bolsillo-box" style="background:#e3f2fd; border-color:#2196f3;"><strong>✉️ Bolsillo Central</strong><h3 style="margin:5px 0; color:#0984e3; font-family:var(--font-title);">${titulo}</h3>${renderImg(img2)}<small>${alumno} - ${grado}</small></div>
+            <div class="bolsillo-box"><strong>✂️ Solapa B</strong><p style="font-size:11px;">${txt3}</p>${renderImg(img3)}</div>
           </div>
         `;
       } else if (formato === 'scrapbook') {
-        // SCRAPBOOK
         lienzo.innerHTML = `
           <div class="scrap-container">
             <div style="grid-column:1/-1; text-align:center; font-family:var(--font-title); font-size:24px; color:#d35400;">📸 ${titulo}</div>
-            <div class="scrap-card">
-              <span style="background:#f1c40f; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold;">NOTA 1</span>
-              <p style="font-size:11px;">${txt1}</p>
-              ${renderImg(img1)}
-            </div>
-            <div class="scrap-card">
-              <span style="background:#e67e22; color:white; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold;">NOTA 2</span>
-              <p style="font-size:11px;">${txt2}</p>
-              ${renderImg(img2)}
-            </div>
-            <div class="scrap-card" style="grid-column:1/-1;">
-              <span style="background:#2ecc71; color:white; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold;">RECUERDA</span>
-              <p style="font-size:11px;">${txt3}</p>
-              ${renderImg(img3)}
-            </div>
+            <div class="scrap-card"><span style="background:#f1c40f; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold;">NOTA 1</span><p style="font-size:11px;">${txt1}</p>${renderImg(img1)}</div>
+            <div class="scrap-card"><span style="background:#e67e22; color:white; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold;">NOTA 2</span><p style="font-size:11px;">${txt2}</p>${renderImg(img2)}</div>
+            <div class="scrap-card" style="grid-column:1/-1;"><span style="background:#2ecc71; color:white; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold;">RECUERDA</span><p style="font-size:11px;">${txt3}</p>${renderImg(img3)}</div>
             <div style="grid-column:1/-1; text-align:center; font-size:10px; color:#7f8c8d;">${alumno} | ${escuela}</div>
           </div>
         `;
       } else if (formato === 'triptico') {
-        // TRÍPTICO
         if (vistaFrente) {
           lienzo.innerHTML = `
             <div class="grid-triptico">
               <div class="col-triptico">
                 <small style="background:#dfe6e9; padding:2px 5px; border-radius:4px; font-weight:bold;">CARA 1 (Interior)</small>
-                <p style="font-size:11px; margin-top:6px;">${txt1}</p>
+                <p style="font-size:11px; margin:0;">${txt1}</p>
                 ${renderImg(img1)}
               </div>
               <div class="col-triptico">
                 <small style="background:#dfe6e9; padding:2px 5px; border-radius:4px; font-weight:bold;">CARA 2 (Centro)</small>
-                <p style="font-size:11px; margin-top:6px;">${txt2}</p>
+                <p style="font-size:11px; margin:0;">${txt2}</p>
                 ${renderImg(img2)}
               </div>
               <div class="col-triptico">
                 <small style="background:#dfe6e9; padding:2px 5px; border-radius:4px; font-weight:bold;">CARA 3 (Interior)</small>
-                <p style="font-size:11px; margin-top:6px;">${txt3}</p>
+                <p style="font-size:11px; margin:0;">${txt3}</p>
                 ${renderImg(img3)}
               </div>
             </div>
@@ -491,41 +420,38 @@
             <div class="grid-triptico">
               <div class="col-triptico">
                 <small style="background:#dfe6e9; padding:2px 5px; border-radius:4px; font-weight:bold;">SOLAPA (Cara 4)</small>
-                <p style="font-size:11px; margin-top:6px;">${txt1}</p>
+                <p style="font-size:11px; margin:0;">${txt1}</p>
               </div>
               <div class="col-triptico">
                 <small style="background:#dfe6e9; padding:2px 5px; border-radius:4px; font-weight:bold;">CONTRAPORTADA (Cara 5)</small>
-                <p style="font-size:11px; text-align:center; margin-top:15px;"><strong>Datos del Alumno:</strong><br>${alumno}<br><br><strong>Escuela:</strong><br>${escuela}<br><br><strong>Grado:</strong><br>${grado}</p>
+                <p style="font-size:11px; text-align:center; margin-top:10px;"><strong>Datos del Alumno:</strong><br>${alumno}<br><br><strong>Escuela:</strong><br>${escuela}<br><br><strong>Grado:</strong><br>${grado}</p>
               </div>
               <div class="col-triptico">
                 <small style="background:#dfe6e9; padding:2px 5px; border-radius:4px; font-weight:bold;">PORTADA (Cara 6)</small>
-                <h3 style="text-align:center; color:#ff4757; font-family:var(--font-title); margin:10px 0;">${titulo}</h3>
+                <h3 style="text-align:center; color:#ff4757; font-family:var(--font-title); margin:5px 0;">${titulo}</h3>
                 ${renderImg(img1)}
               </div>
             </div>
           `;
         }
       } else if (formato === 'diptico') {
-        // DÍPTICO
         lienzo.innerHTML = `
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; height:100%;">
-            <div style="border-right:2px dashed #ced6e0; padding-right:10px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="border-right:2px dashed #ced6e0; padding-right:10px; display:flex; flex-direction:column; gap:10px;">
               <small style="background:#dfe6e9; padding:2px 5px; border-radius:4px;">PÁGINA IZQUIERDA</small>
-              <p style="font-size:11px;">${txt1}</p>
+              <p style="font-size:11px; margin:0;">${txt1}</p>
               ${renderImg(img1)}
-              <p style="font-size:11px;">${txt2}</p>
             </div>
-            <div style="padding-left:5px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="padding-left:5px; display:flex; flex-direction:column; gap:10px;">
               <small style="background:#dfe6e9; padding:2px 5px; border-radius:4px;">PÁGINA DERECHA</small>
-              <h3 style="color:#2ed573; font-family:var(--font-title);">${titulo}</h3>
-              <p style="font-size:11px;">${txt3}</p>
-              ${renderImg(img3)}
-              <small style="text-align:center; color:#747d8c;">${alumno} | ${escuela}</small>
+              <h3 style="color:#2ed573; font-family:var(--font-title); margin:0;">${titulo}</h3>
+              <p style="font-size:11px; margin:0;">${txt3}</p>
+              ${renderImg(3 ? img3 : '')}
+              <small style="text-align:center; color:#747d8c; margin-top:auto;">${alumno} | ${escuela}</small>
             </div>
           </div>
         `;
       } else {
-        // LÁMINA EXPOSITIVA
         lienzo.innerHTML = `
           <div style="display:flex; flex-direction:column; gap:12px; height:100%;">
             <div style="background:#ff7675; color:white; padding:12px; border-radius:14px; text-align:center; font-family:var(--font-title); font-size:24px; border:2px solid #ffeaa7;">⚡ ${titulo} ⚡</div>
@@ -550,7 +476,6 @@
       });
     }
 
-    // Inicializar cargando memoria local
     cargarMemoria();
   </script>
 
