@@ -3,130 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generador de Imprimibles Escolares</title>
+  <title>Generador Profesional de Imprimibles Escolares</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f8; margin: 0; padding: 15px; text-align: center; }
-    h1 { color: #2c3e50; font-size: 22px; margin-bottom: 5px; }
-    p.subtitle { color: #7f8c8d; font-size: 14px; margin-top: 0; }
+    :root {
+      --primary: #2c3e50;
+      --accent: #3498db;
+      --bg: #f8f9fa;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg);
+      margin: 0;
+      padding: 15px;
+      color: #333;
+    }
+
+    h1 { text-align: center; color: var(--primary); font-size: 24px; margin-bottom: 5px; }
+    p.subtitle { text-align: center; color: #7f8c8d; font-size: 14px; margin-top: 0; margin-bottom: 20px; }
+
+    /* Panel de Control */
+    .app-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 900px) { .app-container { grid-template-columns: 360px 1fr; } }
+
+    .control-panel {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .section-title { font-size: 14px; font-weight: bold; color: var(--accent); border-bottom: 2px solid #edf2f7; padding-bottom: 4px; margin-top: 15px; margin-bottom: 10px; text-transform: uppercase; }
+
+    .form-group { margin-bottom: 12px; }
+    label { font-weight: 600; font-size: 12px; color: #4a5568; display: block; margin-bottom: 4px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 13px;
+    }
+    textarea { resize: vertical; height: 50px; }
+
+    .style-options { display: flex; gap: 10px; }
+
+    .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap; }
+    button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover { opacity: 0.9; }
+    button.btn-green { background: #2ecc71; }
+
+    /* Vista Previa Blindada (Hoja Carta Horizontal) */
+    .preview-area { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow-x: auto; }
     
-    .controls { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; }
-    .form-group { margin-bottom: 10px; }
-    label { font-weight: bold; font-size: 12px; color: #34495e; display: block; margin-bottom: 4px; }
-    input, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    .hoja-carta {
+      width: 100%;
+      min-width: 750px;
+      height: 480px;
+      background: #ffffff;
+      border: 2px dashed #cbd5e0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .columna-panel {
+      border-right: 1px dashed #a0aec0;
+      padding: 12px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+      background: #fff;
+    }
+    .columna-panel:last-child { border-right: none; }
+
+    .badge-cara {
+      font-size: 10px;
+      font-weight: bold;
+      background: #e2e8f0;
+      color: #4a5568;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-align: center;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .panel-body { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+    .panel-titulo { font-size: 14px; font-weight: bold; color: var(--primary); margin: 0; text-align: center; }
+    .panel-texto { font-size: 11px; color: #2d3748; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; }
     
-    .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; }
-    button { background: #3498db; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-    button:hover { background: #2980b9; }
-    button.btn-secondary { background: #2ecc71; }
-    
-    /* Maqueta del Tríptico */
-    .triptico-container { background: white; border: 2px dashed #bdc3c7; border-radius: 8px; padding: 10px; width: 100%; max-width: 800px; margin: 0 auto; box-shadow: 0 8px 15px rgba(0,0,0,0.1); overflow-x: auto; }
-    .hoja-carta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: #fff; border: 1px solid #e0e0e0; min-height: 280px; padding: 10px; box-sizing: border-box; text-align: left; }
-    
-    .panel { border: 1px dashed #3498db; border-radius: 6px; padding: 8px; background: #fafafa; display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; }
-    .panel-header { font-weight: bold; color: #2980b9; border-bottom: 1px solid #ddd; padding-bottom: 4px; margin-bottom: 6px; text-align: center; text-transform: uppercase; }
-    .panel-content { flex-grow: 1; }
-    .panel-img { width: 100%; height: 70px; object-fit: cover; border-radius: 4px; margin-top: 5px; background: #eee; }
+    .panel-img-container {
+      width: 100%;
+      height: 110px;
+      background: #edf2f7;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .panel-img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Estilos de Impresión */
+    @media print {
+      body { background: white; padding: 0; }
+      .control-panel, .btn-group, h1, p.subtitle { display: none !important; }
+      .preview-area { box-shadow: none; padding: 0; }
+      .hoja-carta { border: none; width: 100vw; height: 100vh; min-width: 100%; }
+      @page { size: landscape; margin: 0; }
+    }
   </style>
 </head>
 <body>
 
-  <h1>📄 Creador de Trípticos Escolares</h1>
-  <p class="subtitle">Maquetación en Vivo · Listo para Imprimir</p>
-
-  <div class="controls">
-    <div class="form-group">
-      <label>Tema del Tríptico:</label>
-      <input type="text" id="inTema" value="Los Gatos Saludables" oninput="actualizarVista()">
-    </div>
-    <div class="form-group">
-      <label>Nombre del Alumno:</label>
-      <input type="text" id="inAlumno" value="Bichurrita Nieto Fuentes" oninput="actualizarVista()">
-    </div>
-    <div class="form-group">
-      <label>Estilo de Ilustración:</label>
-      <select id="inEstilo">
-        <option>🎨 Cartoon / Educativo</option>
-        <option>🌸 Kawaii / Bonito</option>
-        <option>📸 Fotográfico / Realista</option>
-        <option>✏️ Dibujo Coloreable</option>
-      </select>
-    </div>
-  </div>
+  <h1>📄 Generador de Trípticos Escolares</h1>
+  <p class="subtitle">Estructura Blindada · Listo para Imprimir en Hoja Carta</p>
 
   <div class="btn-group">
     <button onclick="toggleVista()" id="btnVista">🔄 Ver Cara Interior (Frente)</button>
-    <button class="btn-secondary" onclick="window.print()">📄 Imprimir / Guardar PDF</button>
+    <button class="btn-green" onclick="window.print()">🖨️ Guardar PDF / Imprimir</button>
   </div>
 
-  <!-- Vista Previa de la Hoja -->
-  <div class="triptico-container">
-    <div class="hoja-carta" id="hojaTriptico">
-      <!-- Los paneles se cargan dinámicamente -->
+  <div class="app-container">
+    
+    <!-- PANEL DE CONFIGURACIÓN -->
+    <div class="control-panel">
+      
+      <div class="section-title">1. Configuración General</div>
+      <div class="form-group">
+        <label>Nivel Escolar:</label>
+        <select id="inNivel">
+          <option>🎒 Educación Inicial / Preescolar</option>
+          <option selected>✏️ Educación Primaria (1º a 6º)</option>
+          <option>📚 Educación Media General</option>
+          <option>🎓 Diversificada / Técnica</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Estilo de Tipografía:</label>
+        <select id="inFuente" onchange="actualizarFuente()">
+          <option value="'Segoe UI', sans-serif">Moderna / Limpia</option>
+          <option value="'Comic Sans MS', 'Chalkboard SE', cursive">Escolar Bonita</option>
+          <option value="Georgia, serif">Clásica / Formal</option>
+        </select>
+      </div>
+
+      <div class="section-title">2. Datos Escolares (Cara 6)</div>
+      <div class="form-group"><label>Alumno(a):</label><input type="text" id="inAlumno" value="Bichurrita Nieto Fuentes" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Escuela / U.E.:</label><input type="text" id="inEscuela" value="U.E. Mishistica" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Grado / Sección:</label><input type="text" id="inGrado" value="5º Grado 'A'" oninput="actualizarVista()"></div>
+
+      <div class="section-title">3. Contenido de las Caras</div>
+      <div class="form-group"><label>Título Principal (Portada):</label><input type="text" id="inTitulo" value="Los Gatos Saludables" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Imagen Portada (URL):</label><input type="text" id="imgCara1" value="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" oninput="actualizarVista()"></div>
+
+      <div class="form-group"><label>Texto Interior 1 (Cara 2):</label><textarea id="txtCara2" oninput="actualizarVista()">Los gatos son mamíferos carnívoros altamente adaptados. Poseen un sentido del oído y vista nocturna excepcionales.</textarea></div>
+      <div class="form-group"><label>Imagen Cara 2 (URL):</label><input type="text" id="imgCara2" value="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400" oninput="actualizarVista()"></div>
+
+      <div class="form-group"><label>Texto Interior 2 (Cara 3):</label><textarea id="txtCara3" oninput="actualizarVista()">Alimentación: Requieren dietas balanceadas ricas en proteínas. Siempre deben tener acceso a agua fresca.</textarea></div>
+      
+      <div class="form-group"><label>Texto Interior 3 (Cara 4):</label><textarea id="txtCara4" oninput="actualizarVista()">Cuidados Médicos: Vacunación anual y desparasitación constante garantizan una vida larga y feliz.</textarea></div>
+
+      <div class="form-group"><label>Texto Solapa (Cara 5):</label><textarea id="txtCara5" oninput="actualizarVista()">Curiosidades: Un gato duerme en promedio entre 12 y 16 horas al día para conservar energía.</textarea></div>
+
     </div>
+
+    <!-- VISTA PREVIA INTERACTIVA -->
+    <div class="preview-area">
+      <div class="hoja-carta" id="hojaTriptico">
+        <!-- Generación Dinámica -->
+      </div>
+    </div>
+
   </div>
 
   <script>
     let vistaExterior = true;
 
+    function actualizarFuente() {
+      const fuente = document.getElementById('inFuente').value;
+      document.getElementById('hojaTriptico').style.fontFamily = fuente;
+    }
+
     function actualizarVista() {
-      const tema = document.getElementById('inTema').value || 'Tema Escolar';
-      const alumno = document.getElementById('inAlumno').value || 'Nombre Alumno';
+      const titulo = document.getElementById('inTitulo').value || 'Título del Tríptico';
+      const alumno = document.getElementById('inAlumno').value || 'Nombre del Alumno';
+      const escuela = document.getElementById('inEscuela').value || 'Nombre de la Escuela';
+      const grado = document.getElementById('inGrado').value || 'Grado / Sección';
+      
+      const img1 = document.getElementById('imgCara1').value;
+      const img2 = document.getElementById('imgCara2').value;
+
+      const txt2 = document.getElementById('txtCara2').value;
+      const txt3 = document.getElementById('txtCara3').value;
+      const txt4 = document.getElementById('txtCara4').value;
+      const txt5 = document.getElementById('txtCara5').value;
+
       const hoja = document.getElementById('hojaTriptico');
 
       if (vistaExterior) {
+        // CARA EXTERIOR: Solapa (Cara 5) | Contraportada (Cara 6) | Portada (Cara 1)
         hoja.innerHTML = `
-          <div class="panel">
-            <div class="panel-header">Solapa (Cara 5)</div>
-            <div class="panel-content">
-              <strong>Cuidados y Curiosidades:</strong><br>
-              Mantener a tu mascota vacunada y alimentada adecuadamente garantiza una vida feliz.
+          <div class="columna-panel">
+            <div class="badge-cara">Solapa (Cara 5)</div>
+            <div class="panel-body">
+              <p class="panel-titulo">¿Sabías que...?</p>
+              <p class="panel-texto">${txt5}</p>
             </div>
           </div>
-          <div class="panel">
-            <div class="panel-header">Contraportada (Cara 6)</div>
-            <div class="panel-content">
-              <strong>Datos Escolares:</strong><br>
-              <strong>Alumno:</strong> ${alumno}<br>
-              <strong>Grado:</strong> 5º Grado<br>
-              <strong>Escuela:</strong> U.E. Mishistica
+          <div class="columna-panel">
+            <div class="badge-cara">Contraportada (Cara 6)</div>
+            <div class="panel-body" style="justify-content: center; text-align: center;">
+              <p class="panel-titulo">Datos Escolares</p>
+              <p class="panel-texto">
+                <strong>Alumno:</strong> ${alumno}<br><br>
+                <strong>Escuela:</strong> ${escuela}<br><br>
+                <strong>Grado:</strong> ${grado}
+              </p>
             </div>
           </div>
-          <div class="panel">
-            <div class="panel-header">Portada (Cara 1)</div>
-            <div class="panel-content" style="text-align: center;">
-              <h3 style="margin: 5px 0; color: #2c3e50;">${tema}</h3>
-              <p style="font-size: 10px; color: #7f8c8d;">Guía Informativa Escolar</p>
-              <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300" class="panel-img" alt="Portada">
+          <div class="columna-panel">
+            <div class="badge-cara">Portada (Cara 1)</div>
+            <div class="panel-body" style="text-align: center;">
+              <p class="panel-titulo" style="font-size: 16px; color: #2c3e50;">${titulo}</p>
+              <div class="panel-img-container">
+                <img src="${img1}" class="panel-img" alt="Portada" onerror="this.style.display='none'">
+              </div>
+              <p class="panel-texto" style="font-size: 10px; color: #7f8c8d;">Proyecto Escolar Informativo</p>
             </div>
           </div>
         `;
       } else {
+        // CARA INTERIOR: Interior 1 (Cara 2) | Interior 2 (Cara 3) | Interior 3 (Cara 4)
         hoja.innerHTML = `
-          <div class="panel">
-            <div class="panel-header">Cara Interior 1 (Cara 2)</div>
-            <div class="panel-content">
-              <strong>¿Qué son los Gatos?</strong><br>
-              Los gatos son mamíferos carnívoros de la familia Felidae. Poseen una gran agilidad y sentidos muy desarrollados.
-            </div>
-            <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=300" class="panel-img" alt="Interior 1">
-          </div>
-          <div class="panel">
-            <div class="panel-header">Cara Interior 2 (Cara 3)</div>
-            <div class="panel-content">
-              <strong>Alimentación Saludable:</strong><br>
-              Requieren una dieta rica en proteínas y agua fresca siempre disponible para evitar enfermedades renales.
+          <div class="columna-panel">
+            <div class="badge-cara">Interior 1 (Cara 2)</div>
+            <div class="panel-body">
+              <p class="panel-titulo">Introducción</p>
+              <p class="panel-texto">${txt2}</p>
+              <div class="panel-img-container">
+                <img src="${img2}" class="panel-img" alt="Interior 2" onerror="this.style.display='none'">
+              </div>
             </div>
           </div>
-          <div class="panel">
-            <div class="panel-header">Cara Interior 3 (Cara 4)</div>
-            <div class="panel-content">
-              <strong>Importancia de las Vacunas:</strong><br>
-              Las consultas periódicas al veterinario aseguran que cumpla su esquema de vacunación completo.
+          <div class="columna-panel">
+            <div class="badge-cara">Interior 2 (Cara 3)</div>
+            <div class="panel-body">
+              <p class="panel-titulo">Características</p>
+              <p class="panel-texto">${txt3}</p>
+            </div>
+          </div>
+          <div class="columna-panel">
+            <div class="badge-cara">Interior 3 (Cara 4)</div>
+            <div class="panel-body">
+              <p class="panel-titulo">Recomendaciones</p>
+              <p class="panel-texto">${txt4}</p>
             </div>
           </div>
         `;
       }
+      actualizarFuente();
     }
 
     function toggleVista() {
@@ -135,7 +292,7 @@
       actualizarVista();
     }
 
-    // Inicializar
+    // Inicialización
     actualizarVista();
   </script>
 
