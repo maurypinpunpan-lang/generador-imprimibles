@@ -3,112 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pin Pun Pan - Generador de Láminas y Recursos Educativos</title>
+  <title>Pin Pun Pan - Generador Educativo Kawaii & Ilustrado</title>
   
-  <!-- Carga de Fuentes Escolares de Google -->
+  <!-- Carga de Fuentes Escolares y Kawaii de Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;700;800&family=Bubblegum+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Quicksand:wght@600;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
   
-  <!-- Librería para Exportar a Imagen PNG -->
+  <!-- Librería para Exportar a Imagen PNG HD -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     :root {
-      --primary: #2c3e50;
-      --accent: #ff6b6b;
-      --ai-color: #8e44ad;
-      --bg: #f0f4f8;
+      --primary: #ff6b81;
+      --secondary: #70a1ff;
+      --bg: #f7f1e3;
       --card-bg: #ffffff;
-      --font-main: 'Fredoka', 'Nunito', sans-serif;
+      --font-title: 'Bubblegum Sans', cursive;
+      --font-body: 'Fredoka', 'Quicksand', sans-serif;
     }
 
     body {
-      font-family: var(--font-main);
+      font-family: var(--font-body);
       background-color: var(--bg);
       margin: 0;
-      padding: 15px;
-      color: #2d3748;
+      padding: 12px;
+      color: #2f3542;
     }
 
     h1 {
       text-align: center;
       color: #ff4757;
-      font-size: 26px;
+      font-size: 28px;
       margin-bottom: 2px;
+      font-family: var(--font-title);
       text-shadow: 2px 2px 0px #ffeaa7;
-      font-family: 'Bubblegum Sans', cursive;
     }
-    p.subtitle { text-align: center; color: #718096; font-size: 13px; margin-top: 0; margin-bottom: 15px; }
+    p.subtitle { text-align: center; color: #57606f; font-size: 13px; margin-top: 0; margin-bottom: 15px; }
 
-    .app-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
-    @media (min-width: 920px) { .app-container { grid-template-columns: 390px 1fr; } }
+    .app-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 15px; }
+    @media (min-width: 920px) { .app-container { grid-template-columns: 400px 1fr; } }
 
     .control-panel {
       background: white;
       padding: 18px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       max-height: 85vh;
       overflow-y: auto;
-      border: 2px solid #e2e8f0;
+      border: 3px solid #f1f2f6;
     }
 
-    .section-title { font-size: 12px; font-weight: bold; color: #3182ce; border-bottom: 2px dashed #e2e8f0; padding-bottom: 4px; margin-top: 15px; margin-bottom: 10px; text-transform: uppercase; }
+    .section-title { font-size: 12px; font-weight: bold; color: #70a1ff; border-bottom: 2px dashed #dfe4ea; padding-bottom: 4px; margin-top: 15px; margin-bottom: 10px; text-transform: uppercase; }
     
     .ai-section {
-      background: #f3e8ff;
-      border: 2px dashed #c084fc;
+      background: #fff0f6;
+      border: 2px dashed #ff80ab;
       padding: 12px;
-      border-radius: 12px;
+      border-radius: 16px;
       margin-bottom: 15px;
     }
-    .ai-title { color: #7e22ce; font-size: 13px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+    .ai-title { color: #c2185b; font-size: 14px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; font-family: var(--font-title); }
 
     .form-group { margin-bottom: 10px; }
-    label { font-weight: 600; font-size: 11px; color: #4a5568; display: block; margin-bottom: 3px; }
+    label { font-weight: 700; font-size: 11px; color: #57606f; display: block; margin-bottom: 3px; }
     input, select, textarea {
       width: 100%;
       padding: 8px 10px;
-      border: 2px solid #cbd5e0;
-      border-radius: 8px;
+      border: 2px solid #ced6e0;
+      border-radius: 10px;
       box-sizing: border-box;
       font-size: 12px;
-      font-family: var(--font-main);
+      font-family: var(--font-body);
     }
     textarea { resize: vertical; height: 42px; }
 
-    .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap; }
+    .btn-group { display: flex; gap: 8px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap; }
     button {
-      background: #3182ce;
+      background: #70a1ff;
       color: white;
       border: none;
-      padding: 10px 18px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 12px;
       font-weight: bold;
       font-size: 13px;
       cursor: pointer;
       transition: 0.2s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      font-family: var(--font-main);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      font-family: var(--font-body);
     }
     button:hover { transform: translateY(-2px); opacity: 0.95; }
-    button.btn-green { background: #38a169; }
-    button.btn-orange { background: #ed8936; }
-    button.btn-ai { background: #9333ea; width: 100%; margin-top: 5px; }
+    button.btn-green { background: #2ed573; }
+    button.btn-orange { background: #ffa502; }
+    button.btn-ai { background: #ff4757; width: 100%; margin-top: 5px; }
 
-    /* Área de Previsualización / Lienzo Gráfico */
-    .preview-area { background: white; padding: 15px; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); overflow-x: auto; }
+    /* Área de Previsualización / Lienzo Gráfico Tipo Sticker */
+    .preview-area { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow-x: auto; }
     
     .hoja-impresion {
       background: #ffffff;
-      border: 3px solid #cbd5e0;
-      border-radius: 12px;
+      border: 3px solid #dfe4ea;
+      border-radius: 16px;
       box-sizing: border-box;
       position: relative;
       margin: 0 auto;
       overflow: hidden;
-      padding: 12px;
+      padding: 15px;
     }
 
     /* Tamaños de Papel */
@@ -116,7 +116,7 @@
     .papel-oficio { width: 890px; min-height: 520px; }
     .papel-tabloide { width: 1020px; min-height: 620px; }
 
-    /* Estilos Tipo Sticker para Láminas e Infografías */
+    /* Estilos Tipo Sticker Kawaii */
     .lamina-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -126,55 +126,55 @@
     
     .lamina-header {
       grid-column: 1 / -1;
-      background: #ff7675;
+      background: #ff6b81;
       color: white;
       padding: 12px;
-      border-radius: 12px;
+      border-radius: 16px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(255, 118, 117, 0.3);
-      border: 2px solid #fdcb6e;
+      box-shadow: 0 5px 12px rgba(255, 107, 129, 0.3);
+      border: 3px solid #ffeaa7;
     }
-    .lamina-header h2 { margin: 0; font-size: 22px; font-family: 'Bubblegum Sans', cursive; text-shadow: 1px 1px 0px #d63031; }
+    .lamina-header h2 { margin: 0; font-size: 24px; font-family: var(--font-title); letter-spacing: 1px; }
 
     .sticker-card {
       background: #fff;
-      border: 2px solid #74b9ff;
-      border-radius: 12px;
-      padding: 10px;
-      box-shadow: 3px 3px 0px #74b9ff;
+      border: 2px solid #70a1ff;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 4px 4px 0px #70a1ff;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
     .sticker-card-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
-      color: #0984e3;
-      background: #dfe6e9;
-      padding: 3px 8px;
-      border-radius: 6px;
+      color: #3742fa;
+      background: #eccc68;
+      padding: 3px 10px;
+      border-radius: 8px;
       display: inline-block;
       text-align: center;
     }
-    .sticker-card-text { font-size: 11px; color: #2d3436; line-height: 1.3; }
+    .sticker-card-text { font-size: 11px; color: #2f3542; line-height: 1.3; }
 
     .panel-img-container {
       width: 100%;
-      height: 95px;
+      height: 110px;
       background: #f1f2f6;
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px dashed #ced6e0;
+      border: 2px dashed #ced6e0;
     }
-    .panel-img { width: 100%; height: 100%; object-fit: cover; }
+    .panel-img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
 
     /* Malla para Trípticos */
     .grid-triptico { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
     .columna-panel {
-      border-right: 2px dashed #b2bec3;
+      border-right: 2px dashed #ced6e0;
       padding: 8px;
       box-sizing: border-box;
       display: flex;
@@ -194,46 +194,50 @@
 </head>
 <body>
 
-  <h1>✨ Pin Pun Pan - Creador de Láminas e Imprimibles</h1>
-  <p class="subtitle">Estética de Diseño · Trípticos · Láminas Expositivas · Infografías · Mapas</p>
+  <h1>✨ Pin Pun Pan - Generador Educativo Kawaii</h1>
+  <p class="subtitle">Láminas Expositivas · Trípticos · Infografías · Ilustraciones de Alta Calidad</p>
 
   <div class="btn-group">
     <button onclick="toggleVista()" id="btnVista">🔄 Ver Cara Interior / Contenido</button>
-    <button class="btn-orange" onclick="exportarPNG()">🖼️ Descargar Imagen (PNG)</button>
+    <button class="btn-orange" onclick="exportarPNG()">🖼️ Descargar Imagen (PNG HD)</button>
     <button class="btn-green" onclick="window.print()">🖨️ Guardar PDF / Imprimir</button>
   </div>
 
   <div class="app-container">
     
-    <!-- PANEL DE CONFIGURACIÓN -->
+    <!-- PANEL DE CONTROL -->
     <div class="control-panel">
       
-      <!-- MÓDULO IA -->
+      <!-- MÓDULO IA E IMÁGENES KAWAII -->
       <div class="ai-section">
-        <div class="ai-title">🤖 Generador Automático por IA</div>
+        <div class="ai-title">🎨 Generador de Ilustraciones e IA</div>
+        
         <div class="form-group">
-          <label>Tema Educativo:</label>
-          <input type="text" id="inTemaIA" value="El Sistema Eléctrico y la Energía">
+          <label>Tema del Material:</label>
+          <input type="text" id="inTemaIA" value="El Sistema Eléctrico">
         </div>
+
         <div class="form-group">
-          <label>Enfoque Pedagógico:</label>
-          <select id="inEnfoqueIA">
-            <option value="practico">🌍 Práctico y Educativo</option>
-            <option value="cientifico">🔬 Científico e Informativo</option>
-            <option value="creativo">🎨 Creativo con Historias</option>
+          <label>Estilo de Ilustración Preferido:</label>
+          <select id="inEstiloImg" onchange="cambiarEstiloIlustracion()">
+            <option value="kawaii" selected>🧸 Kawaii / Vector Infantil Vectorial</option>
+            <option value="coloreable">🖍️ Dibujo para Colorear (Líneas B/N)</option>
+            <option value="3d-cartoon">✨ 3D Cartoon / Estilo Pixar-Gemini</option>
+            <option value="realista">📸 Fotografía HD Realista</option>
           </select>
         </div>
-        <button class="btn-ai" onclick="generarConIA()">✨ Generar Lámina Completa</button>
+
+        <button class="btn-ai" onclick="generarLaminaconEstilo()">✨ Generar Lámina e Ilustraciones</button>
+        <button style="background:#57606f; width:100%; margin-top:6px; font-size:11px;" onclick="copiarPromptIA()">📋 Copiar Prompt para NanoBanana / Gemini</button>
       </div>
 
-      <div class="section-title">1. Formato y Tamaño de Hoja</div>
+      <div class="section-title">1. Formato y Tamaño de Papel</div>
       <div class="form-group">
         <label>Tipo de Recurso Educativo:</label>
         <select id="inFormato" onchange="actualizarVista()">
           <option value="lamina" selected>🖼️ Lámina Expositiva / Infografía (Página Entera)</option>
           <option value="triptico">📑 Tríptico Escolar (6 Caras)</option>
           <option value="diptico">📖 Díptico Escolar (4 Caras)</option>
-          <option value="mapa">📊 Mapa Conceptual / Mental</option>
         </select>
       </div>
 
@@ -246,22 +250,22 @@
         </select>
       </div>
 
-      <div class="section-title">2. Datos de Identificación</div>
+      <div class="section-title">2. Identificación del Alumno</div>
       <div class="form-group"><label>Alumno(a):</label><input type="text" id="inAlumno" value="Bichurrita Nieto Fuentes" oninput="actualizarVista()"></div>
       <div class="form-group"><label>Escuela / U.E.:</label><input type="text" id="inEscuela" value="U.E. Mishistica" oninput="actualizarVista()"></div>
       <div class="form-group"><label>Grado y Sección:</label><input type="text" id="inGrado" value="5º Grado 'A'" oninput="actualizarVista()"></div>
 
-      <div class="section-title">3. Edición de Secciones e Imágenes</div>
-      <div class="form-group"><label>Título Banner Principal:</label><input type="text" id="inTitulo" value="SISTEMA ELÉCTRICO" oninput="actualizarVista()"></div>
+      <div class="section-title">3. Edición de Texto e Imágenes</div>
+      <div class="form-group"><label>Título Principal:</label><input type="text" id="inTitulo" value="EL SISTEMA ELÉCTRICO" oninput="actualizarVista()"></div>
       
-      <div class="form-group"><label>Sección 1 (Texto):</label><textarea id="txtCara1" oninput="actualizarVista()">¿Qué es la electricidad? Es una forma de energía producida por el movimiento de electrones.</textarea></div>
-      <div class="form-group"><label>Imagen 1 (URL):</label><input type="text" id="imgCara1" value="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Sección 1 (Texto):</label><textarea id="txtCara1" oninput="actualizarVista()">¿Qué es la electricidad? Es la energía que produce luz y movimiento a través de cargas eléctricas.</textarea></div>
+      <div class="form-group"><label>Imagen 1 (URL / PNG):</label><input type="text" id="imgCara1" value="https://cdn-icons-png.flaticon.com/512/3109/3109813.png" oninput="actualizarVista()"></div>
 
-      <div class="form-group"><label>Sección 2 (Texto):</label><textarea id="txtCara2" oninput="actualizarVista()">Generación: Se produce en plantas hidroeléctricas, térmicas o solares y se distribuye en redes.</textarea></div>
-      <div class="form-group"><label>Imagen 2 (URL):</label><input type="text" id="imgCara2" value="https://images.unsplash.com/photo-1509391365360-2e959784a276?w=400" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Sección 2 (Texto):</label><textarea id="txtCara2" oninput="actualizarVista()">¿Cómo viaja? La energía viaja desde las centrales eléctricas por cables hasta llegar a casa.</textarea></div>
+      <div class="form-group"><label>Imagen 2 (URL / PNG):</label><input type="text" id="imgCara2" value="https://cdn-icons-png.flaticon.com/512/2983/2983780.png" oninput="actualizarVista()"></div>
 
-      <div class="form-group"><label>Sección 3 (Texto):</label><textarea id="txtCara3" oninput="actualizarVista()">Uso Seguro: No tocar cables pelados ni enchufes con las manos mojadas para evitar accidentes.</textarea></div>
-      <div class="form-group"><label>Imagen 3 (URL):</label><input type="text" id="imgCara3" value="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400" oninput="actualizarVista()"></div>
+      <div class="form-group"><label>Sección 3 (Texto):</label><textarea id="txtCara3" oninput="actualizarVista()">Consejo Seguro: Usa la electricidad con precaución y desconecta los aparatos que no uses.</textarea></div>
+      <div class="form-group"><label>Imagen 3 (URL / PNG):</label><input type="text" id="imgCara3" value="https://cdn-icons-png.flaticon.com/512/1040/1040230.png" oninput="actualizarVista()"></div>
 
     </div>
 
@@ -282,14 +286,42 @@
       return `<div class="panel-img-container"><img src="${url}" class="panel-img" alt="Ilustración" onerror="this.parentNode.style.display='none'"></div>`;
     }
 
-    function generarConIA() {
-      const tema = document.getElementById('inTemaIA').value || 'el tema';
-      document.getElementById('inTitulo').value = tema.toUpperCase();
-      document.getElementById('txtCara1').value = `¿Qué es? Explicación sencilla de ${tema} para comprender sus componentes y fundamentos principales.`;
-      document.getElementById('txtCara2').value = `Funcionamiento: Fases del proceso de ${tema} y cómo impacta en nuestro entorno escolar.`;
-      document.getElementById('txtCara3').value = `Recomendaciones: Pautas clave para cuidar y aplicar los conocimientos sobre ${tema}.`;
+    function cambiarEstiloIlustracion() {
+      const estilo = document.getElementById('inEstiloImg').value;
+      
+      if (estilo === 'kawaii') {
+        document.getElementById('imgCara1').value = 'https://cdn-icons-png.flaticon.com/512/3109/3109813.png';
+        document.getElementById('imgCara2').value = 'https://cdn-icons-png.flaticon.com/512/2983/2983780.png';
+        document.getElementById('imgCara3').value = 'https://cdn-icons-png.flaticon.com/512/1040/1040230.png';
+      } else if (estilo === 'coloreable') {
+        document.getElementById('imgCara1').value = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+        document.getElementById('imgCara2').value = 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png';
+        document.getElementById('imgCara3').value = 'https://cdn-icons-png.flaticon.com/512/3135/3135789.png';
+      } else if (estilo === '3d-cartoon') {
+        document.getElementById('imgCara1').value = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400';
+        document.getElementById('imgCara2').value = 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400';
+        document.getElementById('imgCara3').value = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400';
+      }
       actualizarVista();
-      alert(`✨ ¡Lámina de "${tema}" generada con estilo gráfico!`);
+    }
+
+    function generarLaminaconEstilo() {
+      const tema = document.getElementById('inTemaIA').value || 'EL TEMA';
+      document.getElementById('inTitulo').value = tema.toUpperCase();
+      document.getElementById('txtCara1').value = `Concepto Principal: Explicación amigable y clara sobre ${tema} con enfoque escolar.`;
+      document.getElementById('txtCara2').value = `Proceso y Funcionamiento: ¿Cómo se aplica ${tema} en la vida cotidiana y en la escuela?`;
+      document.getElementById('txtCara3').value = `Puntos Clave y Recuerda: Datos curiosos e importantes para recordar sobre ${tema}.`;
+      cambiarEstiloIlustracion();
+      alert(`✨ ¡Lámina ilustrada sobre "${tema}" generada con éxito!`);
+    }
+
+    function copiarPromptIA() {
+      const tema = document.getElementById('inTemaIA').value || 'tema escolar';
+      const estilo = document.getElementById('inEstiloImg').value;
+      const prompt = `Crea una ilustración infantil vectorial transparente PNG de alta resolución sobre "${tema}", en estilo ${estilo}, colores vivos pasteles, personajes tiernos sonrientes, fondo blanco limpio, perfecto para lámina escolar.`;
+      
+      navigator.clipboard.writeText(prompt);
+      alert(`📋 Prompt copiado al portapapeles:\n\n"${prompt}"\n\nPégalo en Gemini o NanoBanana para generar tu imagen perfecta.`);
     }
 
     function actualizarVista() {
@@ -312,39 +344,37 @@
       const lienzo = document.getElementById('hojaLienzo');
       lienzo.className = `hoja-impresion ${papel}`;
 
-      if (formato === 'lamina' || formato === 'mapa') {
-        // MODO LÁMINA EXPOSITIVA / INFOGRAFÍA (PÁGINA ENTERA)
+      if (formato === 'lamina') {
         lienzo.innerHTML = `
           <div class="lamina-container">
             <div class="lamina-header">
-              <h2>💡 ${titulo}</h2>
+              <h2>⚡ ${titulo} ⚡</h2>
             </div>
             
             <div class="sticker-card">
-              <span class="sticker-card-title">1. CONCEPTO CLAVE</span>
+              <span class="sticker-card-title">1. ¿QUÉ ES?</span>
               <p class="sticker-card-text">${txt1}</p>
               ${renderImg(img1)}
             </div>
 
             <div class="sticker-card">
-              <span class="sticker-card-title">2. DESARROLLO</span>
+              <span class="sticker-card-title">2. ¿CÓMO FUNCIONA?</span>
               <p class="sticker-card-text">${txt2}</p>
               ${renderImg(img2)}
             </div>
 
             <div class="sticker-card" style="grid-column: 1 / -1;">
-              <span class="sticker-card-title">3. DATO IMPORTANTE Y RECOMENDACIONES</span>
+              <span class="sticker-card-title">💡 RECUERDA Y PRECAUCIÓN</span>
               <p class="sticker-card-text">${txt3}</p>
               ${renderImg(img3)}
             </div>
 
-            <div style="grid-column: 1 / -1; text-align: center; font-size: 10px; color: #a0aec0; border-top: 1px dashed #cbd5e0; padding-top: 4px;">
+            <div style="grid-column: 1 / -1; text-align: center; font-size: 10px; color: #747d8c; border-top: 1px dashed #ced6e0; padding-top: 4px;">
               <strong>Alumno:</strong> ${alumno} | <strong>Escuela:</strong> ${escuela} | <strong>Grado:</strong> ${grado}
             </div>
           </div>
         `;
       } else {
-        // MODO TRÍPTICO (DIVIDIDO EN COLUMNAS)
         lienzo.innerHTML = `
           <div class="grid-triptico" style="height: 100%;">
             <div class="columna-panel">
@@ -364,7 +394,7 @@
             <div class="columna-panel">
               <div class="sticker-card">
                 <span class="sticker-card-title">PORTADA</span>
-                <h3 style="text-align:center; color:#e17055; margin:5px 0;">${titulo}</h3>
+                <h3 style="text-align:center; color:#ff4757; margin:5px 0; font-family:var(--font-title);">${titulo}</h3>
                 ${renderImg(img3)}
                 <p style="font-size:9px; text-align:center; margin-top:10px;"><strong>${alumno}</strong><br>${escuela} - ${grado}</p>
               </div>
@@ -384,13 +414,12 @@
       const lienzo = document.getElementById('hojaLienzo');
       html2canvas(lienzo, { scale: 2 }).then(canvas => {
         const enlace = document.createElement('a');
-        enlace.download = 'recurso-educativo-pinpunpan.png';
+        enlace.download = 'lamina-educativa-pinpunpan.png';
         enlace.href = canvas.toDataURL('image/png');
         enlace.click();
       });
     }
 
-    // Inicializar
     actualizarVista();
   </script>
 
